@@ -1,0 +1,7 @@
+name,category,position_title,school,graduation_year_label,short_label,bio_short,bio_full,linkedin_url,email,display_order,featured_on_team_page,active
+Founder Name,Leadership,Founder and Executive Director,School Name,'26,School Name '26,Short bio line,Longer bio goes here.,,founder@example.com,1,TRUE,TRUE
+Grace [Last Name],Leadership,Leadership Role,School Name,'26,School Name '26,Short bio line,Longer bio goes here.,,grace@example.com,2,TRUE,TRUE
+Kevin [Last Name],Leadership,Leadership Role,School Name,'26,School Name '26,Short bio line,Longer bio goes here.,,kevin@example.com,3,TRUE,TRUE
+Thansi [Last Name],Leadership,Leadership Role,School Name,'26,School Name '26,Short bio line,Longer bio goes here.,,thansi@example.com,4,TRUE,TRUE
+Future Role Placeholder,Leadership,Future Role,School Name,'27,School Name '27,Reserved for future leadership addition.,Reserved for future leadership addition.,,,5,TRUE,FALSE
+

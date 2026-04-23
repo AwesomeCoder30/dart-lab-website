@@ -1,0 +1,4 @@
+name,publication_type,summary,authors_display,publish_date,external_url,pdf_file,featured,featured_order,institution_tags,seo_description
+Sample Policy Brief,Policy Brief,Short summary of the publication goes here.,Jane Doe; John Smith,2026-04-23,,,TRUE,1,UCSD; DART Lab,Short SEO description for the publication.
+Sample Research Memo,Research,Short summary of the research output goes here.,Alex Chen,2026-04-23,,,FALSE,2,Cornell; DART Lab,Short SEO description for the research memo.
+
