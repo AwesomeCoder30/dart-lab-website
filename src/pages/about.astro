@@ -1,0 +1,30 @@
+---
+import PageHero from '../components/PageHero.astro';
+import SectionList from '../components/SectionList.astro';
+import { getPage, getSiteSettings } from '../lib/content';
+import BaseLayout from '../layouts/BaseLayout.astro';
+
+const siteSettings = await getSiteSettings();
+const page = await getPage('about');
+---
+
+<BaseLayout
+  title={page.data.title}
+  siteName={siteSettings.data.siteName}
+  navigation={siteSettings.data.navigation}
+  currentPath="/about"
+>
+  <main>
+    <PageHero
+      eyebrow={page.data.eyebrow}
+      title={page.data.heroTitle}
+      description={page.data.heroDescription}
+      lead={page.data.lead}
+      primaryCtaLabel={page.data.primaryCtaLabel}
+      primaryCtaHref={page.data.primaryCtaHref}
+      secondaryCtaLabel={page.data.secondaryCtaLabel}
+      secondaryCtaHref={page.data.secondaryCtaHref}
+    />
+    <SectionList sections={page.data.sections} />
+  </main>
+</BaseLayout>

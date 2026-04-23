@@ -1,0 +1,26 @@
+---
+interface Props {
+  title: string;
+  summary: string;
+  authors: string[];
+  category: string;
+  publishDate: Date;
+}
+
+const { title, summary, authors, category, publishDate } = Astro.props;
+const formattedDate = publishDate.toLocaleDateString('en-US', {
+  year: 'numeric',
+  month: 'long',
+  day: 'numeric',
+});
+---
+
+<article class="border border-slate-200 p-6">
+  <p class="text-xs font-semibold uppercase tracking-[0.16em] text-slate-600">{category}</p>
+  <h2 class="mt-4 text-xl font-semibold tracking-tight text-slate-950">{title}</h2>
+  <p class="mt-4 text-sm leading-7 text-slate-700">{summary}</p>
+  <div class="mt-6 text-sm text-slate-600">
+    <p>{authors.join(', ')}</p>
+    <p class="mt-1">{formattedDate}</p>
+  </div>
+</article>

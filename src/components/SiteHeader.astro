@@ -1,0 +1,40 @@
+---
+interface NavItem {
+  label: string;
+  href: string;
+}
+
+interface Props {
+  siteName: string;
+  navigation: NavItem[];
+  currentPath?: string;
+}
+
+const { siteName, navigation, currentPath = '/' } = Astro.props;
+---
+
+<header class="border-b border-slate-200 bg-white">
+  <div class="mx-auto flex max-w-6xl flex-col gap-4 px-6 py-5 md:flex-row md:items-center md:justify-between">
+    <a href="/" class="text-sm font-semibold uppercase tracking-[0.14em] text-slate-950">
+      {siteName}
+    </a>
+    <nav aria-label="Primary" class="flex flex-wrap gap-x-5 gap-y-2 text-sm text-slate-700">
+      {navigation.map((item) => {
+        const isActive = item.href === currentPath;
+
+        return (
+          <a
+            href={item.href}
+            aria-current={isActive ? 'page' : undefined}
+            class:list={[
+              'transition hover:text-slate-950',
+              isActive && 'font-medium text-slate-950',
+            ]}
+          >
+            {item.label}
+          </a>
+        );
+      })}
+    </nav>
+  </div>
+</header>

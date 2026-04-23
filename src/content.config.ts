@@ -6,6 +6,19 @@ const navigationItemSchema = z.object({
   href: z.string(),
 });
 
+const highlightSchema = z.object({
+  value: z.string(),
+  label: z.string(),
+});
+
+const sectionSchema = z.object({
+  title: z.string(),
+  description: z.string(),
+  items: z.array(z.string()).default([]),
+  ctaLabel: z.string().optional(),
+  ctaHref: z.string().optional(),
+});
+
 const settings = defineCollection({
   loader: glob({ pattern: '**/*.json', base: './src/content/settings' }),
   schema: z.object({
@@ -22,10 +35,13 @@ const pages = defineCollection({
     eyebrow: z.string().optional(),
     heroTitle: z.string(),
     heroDescription: z.string(),
+    lead: z.string().optional(),
     primaryCtaLabel: z.string(),
     primaryCtaHref: z.string(),
     secondaryCtaLabel: z.string().optional(),
     secondaryCtaHref: z.string().optional(),
+    highlights: z.array(highlightSchema).default([]),
+    sections: z.array(sectionSchema).default([]),
   }),
 });
 

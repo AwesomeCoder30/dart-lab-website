@@ -1,0 +1,66 @@
+---
+import { getCollection } from 'astro:content';
+import PageHero from '../components/PageHero.astro';
+import TeamCard from '../components/TeamCard.astro';
+import { getPage, getSiteSettings } from '../lib/content';
+import BaseLayout from '../layouts/BaseLayout.astro';
+
+const siteSettings = await getSiteSettings();
+const page = await getPage('team');
+const teamEntries = await getCollection('team');
+
+const teamOrder = ['Leadership', 'Advisor', 'Collaborator', 'Member', 'Alumni'] as const;
+const teamGroups = teamOrder.map((category) => ({
+  category,
+  entries: teamEntries.filter((entry) => entry.data.category === category && entry.data.active),
+}));
+---
+
+<BaseLayout
+  title={page.data.title}
+  siteName={siteSettings.data.siteName}
+  navigation={siteSettings.data.navigation}
+  currentPath="/team"
+>
+  <main>
+    <PageHero
+      eyebrow={page.data.eyebrow}
+      title={page.data.heroTitle}
+      description={page.data.heroDescription}
+      lead={page.data.lead}
+      primaryCtaLabel={page.data.primaryCtaLabel}
+      primaryCtaHref={page.data.primaryCtaHref}
+      secondaryCtaLabel={page.data.secondaryCtaLabel}
+      secondaryCtaHref={page.data.secondaryCtaHref}
+    />
+
+    <section class="mx-auto max-w-6xl px-6 py-16 sm:py-20">
+      <div class="space-y-12">
+        {teamGroups.map((group) => (
+          <section>
+            <div class="border-b border-slate-200 pb-5">
+              <h2 class="text-2xl font-semibold tracking-tight text-slate-950">{group.category}</h2>
+            </div>
+            <div class="mt-6 grid gap-6 md:grid-cols-2 xl:grid-cols-3">
+              {group.entries.length > 0 ? (
+                group.entries.map((entry) => (
+                  <TeamCard
+                    name={entry.data.name}
+                    positionTitle={entry.data.positionTitle}
+                    school={entry.data.school}
+                    graduationYearLabel={entry.data.graduationYearLabel}
+                    bioShort={entry.data.bioShort}
+                  />
+                ))
+              ) : (
+                <article class="border border-dashed border-slate-300 p-6 text-sm leading-7 text-slate-600">
+                  Content for this section has not been populated yet.
+                </article>
+              )}
+            </div>
+          </section>
+        ))}
+      </div>
+    </section>
+  </main>
+</BaseLayout>
