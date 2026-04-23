@@ -58,3 +58,11 @@ Build a highly professional, institutional website for DART Lab that:
 4. Implement the seven-page structure from `docs/page-specs.md`.
 5. Add publication and team detail pages from structured content files.
 6. Deploy a preview and review on desktop and mobile.
+
+## Local Development
+
+Once the Astro app is scaffolded, start it locally with:
+
+```bash
+./scripts/start-local.sh
+```
