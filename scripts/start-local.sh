@@ -23,4 +23,4 @@ if [[ ! -d node_modules ]]; then
 fi
 
 echo "Starting local dev server..."
-exec npm run dev -- --host 0.0.0.0
+exec npm run dev -- --host 127.0.0.1
