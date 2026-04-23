@@ -1,0 +1,48 @@
+---
+import { getCollection } from 'astro:content';
+import PageHero from '../components/PageHero.astro';
+import PublicationCard from '../components/PublicationCard.astro';
+import { getPage, getSiteSettings } from '../lib/content';
+import BaseLayout from '../layouts/BaseLayout.astro';
+
+const siteSettings = await getSiteSettings();
+const page = await getPage('publications');
+const publications = await getCollection('publications');
+const sortedPublications = publications.sort(
+  (a, b) => b.data.publishDate.getTime() - a.data.publishDate.getTime(),
+);
+---
+
+<BaseLayout
+  title={page.data.title}
+  siteName={siteSettings.data.siteName}
+  navigation={siteSettings.data.navigation}
+  currentPath="/publications"
+>
+  <main>
+    <PageHero
+      eyebrow={page.data.eyebrow}
+      title={page.data.heroTitle}
+      description={page.data.heroDescription}
+      lead={page.data.lead}
+      primaryCtaLabel={page.data.primaryCtaLabel}
+      primaryCtaHref={page.data.primaryCtaHref}
+      secondaryCtaLabel={page.data.secondaryCtaLabel}
+      secondaryCtaHref={page.data.secondaryCtaHref}
+    />
+
+    <section id="publication-list" class="mx-auto max-w-6xl px-6 py-16 sm:py-20">
+      <div class="grid gap-6 lg:grid-cols-2">
+        {sortedPublications.map((entry) => (
+          <PublicationCard
+            title={entry.data.title}
+            summary={entry.data.summary}
+            authors={entry.data.authors}
+            category={entry.data.category}
+            publishDate={entry.data.publishDate}
+          />
+        ))}
+      </div>
+    </section>
+  </main>
+</BaseLayout>

@@ -1,0 +1,98 @@
+---
+interface Highlight {
+  value: string;
+  label: string;
+}
+
+interface Props {
+  highlights: Highlight[];
+}
+
+const { highlights } = Astro.props;
+---
+
+{
+  highlights.length > 0 && (
+    <section class="mx-auto max-w-6xl px-6 py-16 sm:py-20">
+      <div class="mb-6">
+        <p class="text-xs font-semibold uppercase tracking-[0.16em] text-[#0A1F44]">By The Numbers</p>
+        <h2 class="mt-3 text-2xl font-semibold tracking-tight text-black">A cleaner way to surface scale and traction</h2>
+      </div>
+      <div class="grid gap-6 md:grid-cols-3">
+        {highlights.map((highlight) => (
+          <article class="rounded-none bg-[#F8F9FA] p-8 shadow-[0_18px_50px_rgba(10,31,68,0.08)]">
+            <div class="mb-6 h-1 w-12 bg-[#C6A15B]"></div>
+            <p
+              class="text-4xl font-semibold tracking-tight text-black sm:text-5xl"
+              data-countup
+              data-count-value={highlight.value}
+            >
+              0
+            </p>
+            <p class="mt-3 text-sm leading-7 text-black">{highlight.label}</p>
+          </article>
+        ))}
+      </div>
+    </section>
+  )
+}
+
+<script>
+  const countElements = document.querySelectorAll('[data-countup]');
+
+  const parseCount = (rawValue) => {
+    const match = rawValue.match(/^(\d+)(.*)$/);
+
+    if (!match) {
+      return null;
+    }
+
+    return {
+      target: Number.parseInt(match[1], 10),
+      suffix: match[2],
+    };
+  };
+
+  const animateCount = (element) => {
+    const parsed = parseCount(element.dataset.countValue ?? '');
+
+    if (!parsed) {
+      element.textContent = element.dataset.countValue ?? '';
+      return;
+    }
+
+    const duration = 900;
+    const start = performance.now();
+
+    const step = (timestamp) => {
+      const progress = Math.min((timestamp - start) / duration, 1);
+      const eased = 1 - Math.pow(1 - progress, 3);
+      const currentValue = Math.round(parsed.target * eased);
+      element.textContent = `${currentValue}${parsed.suffix}`;
+
+      if (progress < 1) {
+        requestAnimationFrame(step);
+      }
+    };
+
+    requestAnimationFrame(step);
+  };
+
+  const observer = new IntersectionObserver(
+    (entries, currentObserver) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting && entry.target instanceof HTMLElement) {
+          animateCount(entry.target);
+          currentObserver.unobserve(entry.target);
+        }
+      });
+    },
+    { threshold: 0.4 },
+  );
+
+  countElements.forEach((element) => {
+    if (element instanceof HTMLElement) {
+      observer.observe(element);
+    }
+  });
+</script>

@@ -1,0 +1,42 @@
+---
+interface Section {
+  title: string;
+  description: string;
+  items?: string[];
+  ctaLabel?: string;
+  ctaHref?: string;
+}
+
+interface Props {
+  sections: Section[];
+}
+
+const { sections } = Astro.props;
+---
+
+<section class="mx-auto max-w-6xl px-6 py-16 sm:py-20">
+  <div class="space-y-10">
+    {sections.map((section) => (
+      <article class="border border-[rgba(10,31,68,0.16)] bg-[#F8F9FA] p-7 sm:p-8">
+        <div class="max-w-3xl">
+          <h2 class="text-2xl font-semibold tracking-tight text-black">{section.title}</h2>
+          <p class="mt-4 text-base leading-8 text-black">{section.description}</p>
+        </div>
+        {section.items && section.items.length > 0 && (
+          <ul class="mt-6 grid gap-3 text-sm leading-7 text-black md:grid-cols-2">
+            {section.items.map((item) => (
+              <li class="border-t border-[rgba(10,31,68,0.16)] pt-3">{item}</li>
+            ))}
+          </ul>
+        )}
+        {section.ctaLabel && section.ctaHref && (
+          <div class="mt-6">
+            <a href={section.ctaHref} class="text-sm font-medium text-[#0A1F44] underline-offset-4 hover:underline">
+              {section.ctaLabel}
+            </a>
+          </div>
+        )}
+      </article>
+    ))}
+  </div>
+</section>

@@ -1,0 +1,18 @@
+---
+interface Props {
+  name: string;
+  school: string;
+  graduationYearLabel: string;
+  bioShort: string;
+  positionTitle?: string;
+}
+
+const { name, school, graduationYearLabel, bioShort, positionTitle } = Astro.props;
+---
+
+<article class="border border-[rgba(10,31,68,0.16)] bg-[#F8F9FA] p-6">
+  <h3 class="text-lg font-semibold text-black">{name}</h3>
+  {positionTitle && <p class="mt-2 text-sm font-medium text-black">{positionTitle}</p>}
+  <p class="mt-2 text-sm text-black">{school} {graduationYearLabel}</p>
+  <p class="mt-4 text-sm leading-7 text-black">{bioShort}</p>
+</article>

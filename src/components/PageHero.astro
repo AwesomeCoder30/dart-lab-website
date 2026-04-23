@@ -1,0 +1,60 @@
+---
+interface Props {
+  eyebrow?: string;
+  title: string;
+  description: string;
+  lead?: string;
+  primaryCtaLabel?: string;
+  primaryCtaHref?: string;
+  secondaryCtaLabel?: string;
+  secondaryCtaHref?: string;
+}
+
+const {
+  eyebrow,
+  title,
+  description,
+  lead,
+  primaryCtaLabel,
+  primaryCtaHref,
+  secondaryCtaLabel,
+  secondaryCtaHref,
+} = Astro.props;
+---
+
+<section class="border-b border-[rgba(10,31,68,0.16)] bg-[#F8F9FA]">
+  <div class="mx-auto max-w-6xl px-6 py-20 sm:py-24">
+    {eyebrow && (
+      <p class="mb-6 text-xs font-semibold uppercase tracking-[0.18em] text-[#0A1F44]">
+        {eyebrow}
+      </p>
+    )}
+    <h1 class="max-w-4xl text-4xl font-semibold tracking-tight text-black sm:text-6xl">
+      {title}
+    </h1>
+    <p class="mt-6 max-w-3xl text-lg leading-8 text-black">
+      {description}
+    </p>
+    {lead && <p class="mt-6 max-w-3xl text-base leading-8 text-black">{lead}</p>}
+    {(primaryCtaLabel && primaryCtaHref) || (secondaryCtaLabel && secondaryCtaHref) ? (
+      <div class="mt-10 flex flex-wrap gap-4">
+        {primaryCtaLabel && primaryCtaHref && (
+          <a
+            href={primaryCtaHref}
+            class="inline-flex items-center justify-center bg-[#0A1F44] px-5 py-3 text-sm font-medium text-[#F8F9FA] transition hover:bg-[#0A1F44]/90"
+          >
+            {primaryCtaLabel}
+          </a>
+        )}
+        {secondaryCtaLabel && secondaryCtaHref && (
+          <a
+            href={secondaryCtaHref}
+            class="inline-flex items-center justify-center border border-[rgba(10,31,68,0.2)] bg-transparent px-5 py-3 text-sm font-medium text-black transition hover:border-[#0A1F44]"
+          >
+            {secondaryCtaLabel}
+          </a>
+        )}
+      </div>
+    ) : null}
+  </div>
+</section>

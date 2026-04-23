@@ -1,0 +1,95 @@
+---
+interface NavItem {
+  label: string;
+  href: string;
+}
+
+interface Props {
+  siteName: string;
+  navigation: NavItem[];
+  currentPath?: string;
+}
+
+const { siteName, navigation, currentPath = '/' } = Astro.props;
+---
+
+<header class="border-b border-[rgba(10,31,68,0.16)] bg-[#F8F9FA]">
+  <div class="mx-auto max-w-6xl px-6 py-5">
+    <div class="flex items-center justify-between gap-6">
+      <a href="/" class="text-sm font-semibold uppercase tracking-[0.14em] text-black">
+        {siteName}
+      </a>
+
+      <button
+        type="button"
+        class="inline-flex h-10 w-10 items-center justify-center border border-[rgba(10,31,68,0.2)] bg-[#F8F9FA] text-black md:hidden"
+        aria-expanded="false"
+        aria-controls="mobile-navigation"
+        data-nav-toggle
+      >
+        <span class="sr-only">Toggle navigation</span>
+        <svg aria-hidden="true" viewBox="0 0 20 20" class="h-4 w-4 fill-none stroke-current stroke-[1.75]">
+          <path d="M3 5h14M3 10h14M3 15h14" />
+        </svg>
+      </button>
+
+      <nav aria-label="Primary" class="hidden gap-x-5 gap-y-2 text-sm text-black md:flex">
+        {navigation.map((item) => {
+          const isActive = item.href === currentPath;
+
+          return (
+            <a
+              href={item.href}
+              aria-current={isActive ? 'page' : undefined}
+              class:list={[
+                'transition hover:text-[#0A1F44]',
+                isActive && 'font-medium text-[#0A1F44]',
+              ]}
+            >
+              {item.label}
+            </a>
+          );
+        })}
+      </nav>
+    </div>
+
+    <nav
+      id="mobile-navigation"
+      aria-label="Mobile primary"
+      class="mt-4 hidden border-t border-[rgba(10,31,68,0.16)] pt-4 text-sm text-black md:hidden"
+      data-mobile-nav
+    >
+      <div class="grid gap-2">
+        {navigation.map((item) => {
+          const isActive = item.href === currentPath;
+
+          return (
+            <a
+              href={item.href}
+              aria-current={isActive ? 'page' : undefined}
+              class:list={[
+                'border border-transparent px-3 py-2 transition hover:border-[rgba(10,31,68,0.16)] hover:text-[#0A1F44]',
+                isActive && 'border-[rgba(10,31,68,0.16)] bg-[#F8F9FA] font-medium text-[#0A1F44]',
+              ]}
+            >
+              {item.label}
+            </a>
+          );
+        })}
+      </div>
+    </nav>
+  </div>
+</header>
+
+<script>
+  const toggle = document.querySelector('[data-nav-toggle]');
+  const menu = document.querySelector('[data-mobile-nav]');
+
+  if (toggle instanceof HTMLButtonElement && menu instanceof HTMLElement) {
+    toggle.addEventListener('click', () => {
+      const expanded = toggle.getAttribute('aria-expanded') === 'true';
+      toggle.setAttribute('aria-expanded', String(!expanded));
+      menu.classList.toggle('hidden', expanded);
+    });
+  }
+</script>
