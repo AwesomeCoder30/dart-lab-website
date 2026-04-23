@@ -38,8 +38,8 @@ const teamGroups = teamOrder.map((category) => ({
       <div class="space-y-12">
         {teamGroups.map((group) => (
           <section>
-            <div class="border-b border-slate-200 pb-5">
-              <h2 class="text-2xl font-semibold tracking-tight text-slate-950">{group.category}</h2>
+            <div class="border-b border-[rgba(10,31,68,0.16)] pb-5">
+              <h2 class="text-2xl font-semibold tracking-tight text-black">{group.category}</h2>
             </div>
             <div class="mt-6 grid gap-6 md:grid-cols-2 xl:grid-cols-3">
               {group.entries.length > 0 ? (
@@ -53,7 +53,7 @@ const teamGroups = teamOrder.map((category) => ({
                   />
                 ))
               ) : (
-                <article class="border border-dashed border-slate-300 p-6 text-sm leading-7 text-slate-600">
+                <article class="border border-dashed border-[rgba(10,31,68,0.2)] bg-[#F8F9FA] p-6 text-sm leading-7 text-black">
                   Content for this section has not been populated yet.
                 </article>
               )}

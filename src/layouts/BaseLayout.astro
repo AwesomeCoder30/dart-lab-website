@@ -14,7 +14,7 @@ const { title, siteName, navigation, currentPath } = Astro.props;
 ---
 
 <!doctype html>
-<html lang="en" class="bg-white text-slate-950">
+<html lang="en" class="bg-[#F8F9FA] text-black">
   <head>
     <meta charset="utf-8" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
@@ -23,7 +23,7 @@ const { title, siteName, navigation, currentPath } = Astro.props;
     <meta name="generator" content={Astro.generator} />
     <title>{title} | {siteName}</title>
   </head>
-  <body class="min-h-screen bg-white antialiased">
+  <body class="min-h-screen bg-[#F8F9FA] antialiased">
     <div class="flex min-h-screen flex-col">
       <SiteHeader siteName={siteName} navigation={navigation} currentPath={currentPath} />
       <div class="flex-1">
